@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 class ParfumController extends Controller
 {
     private string $file = "parfum.json";
-    private string $trainingFile = "training.json"; // File tambahan untuk training
+    private string $trainingFile = "training.json"; 
 
     /* ===========================
         CORE JSON STORAGE (Universal)
@@ -31,13 +31,19 @@ class ParfumController extends Controller
         FRONT STORE (HOME)
     =========================== */
 
-    public function index()
+    public function index(Request $request) 
     {
-        // Ambil data produk
         $parfums = $this->getData($this->file);
-        
-        // Ambil data training (Agar tidak error: Undefined variable $trainings)
         $trainings = $this->getData($this->trainingFile);
+
+        // FITUR SEARCH: Filter berdasarkan Brand atau Name
+        $search = $request->input('search');
+        if ($search) {
+            $parfums = collect($parfums)->filter(function ($item) use ($search) {
+                return false !== stripos($item['name'], $search) || 
+                       false !== stripos($item['brand'], $search);
+            })->values()->all();
+        }
 
         return view('parfum.index', compact('parfums', 'trainings'));
     }
@@ -46,9 +52,7 @@ class ParfumController extends Controller
     {
         $parfums = $this->getData($this->file);
         $parfum = collect($parfums)->firstWhere('id', $id);
-
         if (!$parfum) abort(404);
-
         return view('parfum.show', compact('parfum'));
     }
 
@@ -133,7 +137,7 @@ class ParfumController extends Controller
 
     public function createTraining()
     {
-        return view('parfum.create_training'); // Pastikan buat file view ini
+        return view('parfum.create_training'); 
     }
 
     public function storeTraining(Request $r)
@@ -159,6 +163,50 @@ class ParfumController extends Controller
 
         $this->saveData($this->trainingFile, $trainings);
         return redirect('/')->with('success', 'Training activity recorded.');
+    }
+
+    public function editTraining($id)
+    {
+        $trainings = $this->getData($this->trainingFile);
+        $training = collect($trainings)->firstWhere('id', $id);
+        
+        if (!$training) abort(404);
+
+        $training = (object) $training; 
+        return view('parfum.edit_training', compact('training'));
+    }
+
+    public function updateTraining(Request $r, $id)
+    {
+        $r->validate([
+            'title' => 'required|string|max:255',
+            'location' => 'required|string',
+            'date' => 'required|string',
+            'image' => 'nullable|image|max:2048'
+        ]);
+
+        $trainings = $this->getData($this->trainingFile);
+        $found = false;
+
+        foreach ($trainings as &$t) {
+            if ($t['id'] == $id) {
+                if ($r->hasFile('image')) {
+                    if (!empty($t['image'])) Storage::disk('public')->delete($t['image']);
+                    $t['image'] = $r->file('image')->store('training', 'public');
+                }
+                $t['title'] = $r->title;
+                $t['location'] = $r->location;
+                $t['date'] = $r->date;
+                $t['updated_at'] = now()->toDateTimeString();
+                $found = true;
+                break;
+            }
+        }
+
+        if (!$found) return redirect('/')->with('error', 'Data not found.');
+
+        $this->saveData($this->trainingFile, $trainings);
+        return redirect('/')->with('success', 'Training activity updated.');
     }
 
     public function destroyTraining($id)

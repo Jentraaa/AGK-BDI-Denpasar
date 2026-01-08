@@ -46,7 +46,7 @@
               class="grid grid-cols-12 gap-16">
             
             @csrf
-            {{-- Tambahkan @method('PUT') jika route Anda menggunakan PUT di web.php --}}
+            @method('PUT') {{-- Baris ini diperbaiki untuk mendukung route PUT di web.php --}}
 
             <div class="col-span-7 space-y-12">
                 
@@ -64,11 +64,7 @@
                         </div>
                     </div>
 
-                    <div>
-                        <label class="block text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-2">Price (IDR)</label>
-                        <input type="number" name="price" value="{{ old('price', $parfum['price']) }}"
-                               class="w-full border-b border-gray-100 py-3 text-lg focus:outline-none input-focus-effect tabular-nums">
-                    </div>
+                    {{-- Bagian Price Telah Dihapus --}}
 
                     <div>
                         <label class="block text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-2">Description</label>
