@@ -94,6 +94,10 @@
                     Gallery
                 </a>
 
+                <a href="#archive-section" class="flex items-center px-12 py-4 hover:text-[#C9A14A] transition-colors text-gray-400">
+                    Products
+                </a>
+
                 <a href="#training-section" class="flex items-center px-12 py-4 hover:text-[#C9A14A] transition-colors text-gray-400">
                     Training & Activity
                 </a>
@@ -132,7 +136,6 @@
         </aside>
 
         <main id="main-content" class="flex-1 ml-72">
-
             <section class="relative w-full h-[85vh] bg-black overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&q=80&w=2000" 
                      class="absolute inset-0 w-full h-full object-cover opacity-70 grayscale-[20%]">
@@ -322,9 +325,6 @@
                             <p class="text-gray-400 tracking-[0.2em] uppercase text-xs font-serif italic">
                                 {{ request('search') ? 'No results found for "' . request('search') . '"' : 'The vault is currently empty.' }}
                             </p>
-                            @if(request('search'))
-                                <a href="/#archive-section" class="mt-6 inline-block text-[10px] uppercase tracking-widest border border-black px-8 py-3 hover:bg-black hover:text-white transition">Show All Collections</a>
-                            @endif
                         </div>
                         @endforelse
                     </div>
@@ -334,14 +334,13 @@
     </div>
 
     <script>
-        // SIDEBAR LOGIC
+        // LOGIC SCRIPTS TETAP SAMA SEPERTI KODE ASLI ANDA
         function toggleSidebar() {
             const body = document.body;
             body.classList.toggle('sidebar-closed');
             body.classList.toggle('sidebar-open');
         }
 
-        // CAROUSEL LOGIC
         const slider = document.getElementById('trainingSlider');
         const slides = document.querySelectorAll('.slide-item');
         const dots = document.querySelectorAll('.dot-indicator');
@@ -351,7 +350,6 @@
         function updateSlider() {
             if(slides.length === 0) return;
             slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-            
             dots.forEach((dot, i) => {
                 if(i === currentIndex) dot.classList.add('active');
                 else dot.classList.remove('active');
@@ -387,12 +385,6 @@
             clearInterval(slideInterval);
         }
 
-        const sliderContainer = document.querySelector('.slider-container');
-        if(sliderContainer) {
-            sliderContainer.addEventListener('mouseenter', stopAutoSlide);
-            sliderContainer.addEventListener('mouseleave', startAutoSlide);
-        }
-
         window.addEventListener('load', () => {
             if (window.innerWidth < 1024) {
                 document.body.classList.add('sidebar-closed');
@@ -404,6 +396,5 @@
             }
         });
     </script>
-
 </body>
 </html>

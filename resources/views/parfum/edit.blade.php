@@ -10,6 +10,8 @@
         body { letter-spacing: 0.01em; }
         .input-focus-effect { transition: all 0.3s ease; border-color: #E5E7EB; }
         .input-focus-effect:focus { border-color: #C9A14A; }
+        /* Menambahkan smooth scroll agar transisi ke anchor produk lebih halus */
+        html { scroll-behavior: smooth; }
     </style>
 </head>
 
@@ -24,6 +26,9 @@
 
         <nav class="space-y-10 text-[11px] uppercase tracking-[0.2em]">
             <a href="/" class="block text-gray-400 hover:text-[#C9A14A] transition-colors">Dashboard</a>
+            
+            <a href="/#products" class="block text-gray-400 hover:text-[#C9A14A] transition-colors">Products</a>
+            
             <a href="/create" class="block text-gray-400 hover:text-[#C9A14A] transition-colors">Add Product</a>
             <div class="pt-4 border-t border-gray-50">
                 <span class="text-[#C9A14A] font-semibold">Editing Mode</span>
@@ -46,7 +51,7 @@
               class="grid grid-cols-12 gap-16">
             
             @csrf
-            @method('PUT') {{-- Baris ini diperbaiki untuk mendukung route PUT di web.php --}}
+            @method('PUT') {{-- Mendukung route PUT di web.php --}}
 
             <div class="col-span-7 space-y-12">
                 

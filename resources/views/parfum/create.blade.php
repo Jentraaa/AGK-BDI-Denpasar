@@ -17,7 +17,19 @@
 
 <div class="min-h-screen flex">
 
-    <div class="w-full lg:w-1/2 px-12 lg:px-24 py-16 flex flex-col justify-center">
+    <aside class="hidden lg:flex w-72 border-r border-gray-100 px-12 py-16 flex-col bg-white sticky h-screen top-0">
+        <h1 class="text-xl tracking-[0.4em] font-semibold mb-24">
+            PARFUM<span class="text-[#C9A14A]">VAULT</span>
+        </h1>
+
+        <nav class="space-y-10 text-[11px] uppercase tracking-[0.2em]">
+            <a href="/" class="block text-gray-400 hover:text-[#C9A14A] transition-colors">Dashboard</a>
+            <a href="/#products" class="block text-gray-400 hover:text-[#C9A14A] transition-colors">Products</a>
+            <a href="/create" class="block text-[#C9A14A] font-semibold tracking-[0.3em]">Add Product</a>
+        </nav>
+    </aside>
+
+    <div class="w-full lg:flex-1 px-12 lg:px-24 py-16 flex flex-col justify-center bg-white">
         
         <div class="mb-12">
             <a href="/" class="text-[10px] tracking-[0.3em] text-gray-400 hover:text-[#C9A14A] transition-colors uppercase block mb-8">
@@ -53,9 +65,7 @@
                 </div>
             </div>
 
-            <div>
-                       
-            </div>
+            {{-- Slot Price telah dihapus agar tampilan lebih bersih --}}
 
             <div>
                 <label class="block text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-2">Olfactory Description</label>
@@ -82,7 +92,7 @@
         </form>
     </div>
 
-    <div class="hidden lg:flex w-1/2 bg-[#F8F8F8] items-center justify-center relative overflow-hidden">
+    <div class="hidden lg:flex w-1/3 bg-[#F8F8F8] items-center justify-center relative overflow-hidden border-l border-gray-100">
         <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
             <h1 class="text-[20rem] font-bold">VAULT</h1>
         </div>
