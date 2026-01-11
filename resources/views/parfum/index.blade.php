@@ -15,43 +15,24 @@
         .nav-link-active { color: #C9A14A; font-weight: 600; border-right: 3px solid #C9A14A; }
         .hero-gradient { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%); }
         
-        /* Sidebar Transitions */
-        #sidebar { 
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
-        .sidebar-closed #sidebar { 
-            transform: translateX(-100%); 
-        }
-        #main-content { 
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
-        .sidebar-closed #main-content { 
-            margin-left: 0; 
-        }
+        #sidebar { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sidebar-closed #sidebar { transform: translateX(-100%); }
+        #main-content { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sidebar-closed #main-content { margin-left: 0; }
 
-        /* Float Button Logic */
         #floating-trigger { transition: all 0.3s ease; opacity: 0; pointer-events: none; }
         .sidebar-closed #floating-trigger { opacity: 1; pointer-events: auto; }
 
-        /* Slider Logic */
         .slider-container { overflow: hidden; position: relative; width: 100%; }
         .slider-wrapper { display: flex; transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); }
         .slide-item { min-width: 100%; flex-shrink: 0; }
 
-        /* Custom Pagination Dots */
         .dot-indicator { 
-            width: 8px; 
-            height: 8px; 
-            border-radius: 99px; 
-            background: rgba(255,255,255,0.3);
-            transition: all 0.5s ease;
+            width: 8px; height: 8px; border-radius: 99px; 
+            background: rgba(255,255,255,0.3); transition: all 0.5s ease;
         }
-        .dot-indicator.active { 
-            width: 32px; 
-            background: #C9A14A;
-        }
+        .dot-indicator.active { width: 32px; background: #C9A14A; }
 
-        /* Utility for anchor scroll offset */
         #archive-section { scroll-margin-top: 100px; }
         #training-section { scroll-margin-top: 100px; }
         #collection { scroll-margin-top: 50px; }
@@ -94,12 +75,12 @@
                     Gallery
                 </a>
 
-                <a href="#archive-section" class="flex items-center px-12 py-4 hover:text-[#C9A14A] transition-colors text-gray-400">
-                    Products
-                </a>
-
                 <a href="#training-section" class="flex items-center px-12 py-4 hover:text-[#C9A14A] transition-colors text-gray-400">
                     Training & Activity
+                </a>
+
+                <a href="#archive-section" class="flex items-center px-12 py-4 hover:text-[#C9A14A] transition-colors text-gray-400">
+                    Products
                 </a>
                 
                 @auth
@@ -170,7 +151,7 @@
                         </p>
                         
                         <div>
-                            <a href="#archive-section" class="relative inline-flex items-center group overflow-hidden px-10 py-4 border border-black hover:border-[#C9A14A] transition-colors duration-500">
+                            <a href="#training-section" class="relative inline-flex items-center group overflow-hidden px-10 py-4 border border-black hover:border-[#C9A14A] transition-colors duration-500">
                                 <span class="relative z-10 text-[11px] font-bold uppercase tracking-[0.4em] text-black group-hover:text-white transition-colors duration-500">
                                     Learn More
                                 </span>
@@ -281,10 +262,10 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 gap-y-20">
                         @forelse($parfums as $p)
                         <div class="group bg-white p-4 border border-transparent hover:border-gray-100 hover:shadow-2xl transition-all duration-700">
-                            <div class="relative overflow-hidden bg-[#FBFBFB] mb-8 aspect-square flex items-center justify-center p-6">
+                            <div class="relative overflow-hidden bg-[#FBFBFB] mb-8 aspect-square flex items-center justify-center">
                                 @if($p['image'])
                                     <img src="{{ asset('storage/'.$p['image']) }}" 
-                                         class="max-h-full max-w-full object-contain transform group-hover:scale-110 transition duration-[1.5s] ease-out">
+                                         class="w-full h-full object-cover transform group-hover:scale-110 transition duration-[1.5s] ease-out">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center text-gray-200 uppercase tracking-widest text-[9px] font-serif italic">No Visual</div>
                                 @endif
@@ -334,7 +315,6 @@
     </div>
 
     <script>
-        // LOGIC SCRIPTS TETAP SAMA SEPERTI KODE ASLI ANDA
         function toggleSidebar() {
             const body = document.body;
             body.classList.toggle('sidebar-closed');
