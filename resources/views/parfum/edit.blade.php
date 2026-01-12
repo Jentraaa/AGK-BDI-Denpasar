@@ -10,7 +10,6 @@
         body { letter-spacing: 0.01em; }
         .input-focus-effect { transition: all 0.3s ease; border-color: #E5E7EB; }
         .input-focus-effect:focus { border-color: #C9A14A; }
-        /* Menambahkan smooth scroll agar transisi ke anchor produk lebih halus */
         html { scroll-behavior: smooth; }
     </style>
 </head>
@@ -26,9 +25,7 @@
 
         <nav class="space-y-10 text-[11px] uppercase tracking-[0.2em]">
             <a href="/" class="block text-gray-400 hover:text-[#C9A14A] transition-colors">Dashboard</a>
-            
             <a href="/#products" class="block text-gray-400 hover:text-[#C9A14A] transition-colors">Products</a>
-            
             <a href="/create" class="block text-gray-400 hover:text-[#C9A14A] transition-colors">Add Product</a>
             <div class="pt-4 border-t border-gray-50">
                 <span class="text-[#C9A14A] font-semibold">Editing Mode</span>
@@ -51,7 +48,7 @@
               class="grid grid-cols-12 gap-16">
             
             @csrf
-            @method('PUT') {{-- Mendukung route PUT di web.php --}}
+            @method('PUT')
 
             <div class="col-span-7 space-y-12">
                 
@@ -69,12 +66,18 @@
                         </div>
                     </div>
 
-                    {{-- Bagian Price Telah Dihapus --}}
-
                     <div>
                         <label class="block text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-2">Description</label>
-                        <textarea name="description" rows="6" 
-                                  class="w-full border border-gray-100 p-4 text-sm leading-relaxed focus:outline-none focus:border-[#C9A14A] resize-none">{{ old('description', $parfum['description']) }}</textarea>
+                        <textarea name="description" rows="4" 
+                                  class="w-full border border-gray-100 p-4 text-sm leading-relaxed focus:outline-none focus:border-[#C9A14A] resize-none italic">{{ old('description', $parfum['description']) }}</textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] tracking-[0.2em] text-[#C9A14A] uppercase mb-2 font-bold">Chemical Components / Bahan</label>
+                        <textarea name="components" rows="3" 
+                                  placeholder="e.g. 5-Hydroxymethylfurfural (69.94%), Linalool, Limonene"
+                                  class="w-full border border-gray-100 p-4 text-sm leading-relaxed focus:outline-none focus:border-[#C9A14A] resize-none font-mono text-gray-500 bg-[#FDFDFD]">{{ old('components', $parfum['components'] ?? '') }}</textarea>
+                        <p class="text-[9px] text-gray-400 mt-2 italic">Update the chemical profile or raw material listing.</p>
                     </div>
                 </div>
 

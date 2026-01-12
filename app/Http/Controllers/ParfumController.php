@@ -36,12 +36,12 @@ class ParfumController extends Controller
         $parfums = $this->getData($this->file);
         $trainings = $this->getData($this->trainingFile);
 
-        // FITUR SEARCH: Filter berdasarkan Brand atau Name
+        // FITUR SEARCH: Ditambahkan null-coalescing (?? '') agar tidak error jika key tidak ada
         $search = $request->input('search');
         if ($search) {
             $parfums = collect($parfums)->filter(function ($item) use ($search) {
-                return false !== stripos($item['name'], $search) || 
-                       false !== stripos($item['brand'], $search);
+                return false !== stripos($item['name'] ?? '', $search) || 
+                       false !== stripos($item['brand'] ?? '', $search);
             })->values()->all();
         }
 
@@ -68,6 +68,7 @@ class ParfumController extends Controller
             'name' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'components' => 'nullable|string', // Validasi baru
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
@@ -79,6 +80,7 @@ class ParfumController extends Controller
             "name" => $r->name,
             "brand" => $r->brand,
             "description" => $r->description,
+            "components" => $r->components, // Simpan components
             "image" => $img,
             "created_at" => now()->toDateTimeString()
         ];
@@ -100,6 +102,7 @@ class ParfumController extends Controller
         $r->validate([
             'name' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
+            'components' => 'nullable|string', // Validasi baru
             'image' => 'nullable|image|max:2048'
         ]);
 
@@ -113,6 +116,7 @@ class ParfumController extends Controller
                 $p['name'] = $r->name;
                 $p['brand'] = $r->brand;
                 $p['description'] = $r->description;
+                $p['components'] = $r->components; // Update components
                 $p['updated_at'] = now()->toDateTimeString();
                 break;
             }

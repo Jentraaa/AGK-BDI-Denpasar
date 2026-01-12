@@ -65,12 +65,18 @@
                 </div>
             </div>
 
-            {{-- Slot Price telah dihapus agar tampilan lebih bersih --}}
-
             <div>
                 <label class="block text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-2">Olfactory Description</label>
                 <textarea name="description" rows="3" required
                           class="w-full border-b border-gray-200 py-3 text-lg focus:outline-none input-focus-effect focus:border-[#C9A14A] resize-none leading-relaxed">{{ old('description') }}</textarea>
+            </div>
+
+            <div>
+                <label class="block text-[10px] tracking-[0.2em] text-[#C9A14A] uppercase mb-2 font-semibold">Chemical Components / Bahan</label>
+                <textarea name="components" rows="2" 
+                          class="w-full border-b border-gray-200 py-3 text-lg focus:outline-none input-focus-effect focus:border-[#C9A14A] resize-none leading-relaxed placeholder-gray-200"
+                          placeholder="e.g. 5-Hydroxymethylfurfural (69.94%), Linalool, Limonene">{{ old('components') }}</textarea>
+                <p class="mt-2 text-[9px] text-gray-400 italic">Mention key bioactive compounds or raw materials.</p>
             </div>
 
             <div>

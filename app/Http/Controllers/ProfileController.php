@@ -26,11 +26,11 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        // Mengisi data user dengan data yang sudah divalidasi (username)
         $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        // LOGIKA EMAIL DIHAPUS: 
+        // Karena tidak ada kolom email, pengecekan isDirty('email') dibuang.
 
         $request->user()->save();
 

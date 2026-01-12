@@ -41,26 +41,36 @@
             <p class="text-[11px] tracking-[0.4em] text-[#C9A14A] uppercase font-bold mb-4">
                 {{ $parfum['brand'] }}
             </p>
-            <h1 class="text-6xl font-light tracking-tight leading-none mb-6 italic">
+            <h1 class="text-6xl font-light tracking-tight leading-none mb-6">
                 {{ $parfum['name'] }}
             </h1>
             <div class="h-1 w-12 bg-black"></div>
         </header>
 
-        <section class="space-y-10">
+        <section class="space-y-12">
             <div>
-                <p class="text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-4 font-semibold">About the Scent</p>
-                <p class="text-lg leading-relaxed text-gray-600 font-light max-w-lg italic">
+                <p class="text-[10px] tracking-[0.2em] text-gray-400 uppercase mb-4 font-semibold">About </p>
+                <p class="text-lg leading-relaxed text-gray-600 font-light max-w-lg">
                     "{{ $parfum['description'] }}"
                 </p>
             </div>
 
-            {{-- Bagian Edit Detail dan Vault ID telah dihapus sepenuhnya untuk estetika --}}
-            
-            <div class="pt-12 border-t border-gray-50">
+            <div class="pt-2">
+                <p class="text-[10px] tracking-[0.2em] text-[#C9A14A] uppercase mb-4 font-bold">Ingredient </p>
+                <div class="border-l border-gray-100 pl-6 py-2">
+                    <p class="text-sm leading-relaxed text-gray-500 font-mono tracking-tight">
+                        {{ $parfum['components'] ?? 'Entry Components.' }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-12 border-t border-gray-50 flex justify-between items-center">
                 <p class="text-[9px] tracking-[0.3em] text-gray-300 uppercase font-medium">
                     Curated for PARFUMVAULT Editorial
                 </p>
+                <a href="/edit/{{ $parfum['id'] }}" class="text-[9px] tracking-[0.3em] text-gray-300 hover:text-[#C9A14A] uppercase transition-colors">
+                    Edit Entry
+                </a>
             </div>
         </section>
 

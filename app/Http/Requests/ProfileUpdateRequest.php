@@ -16,15 +16,26 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => [
+            // Mengganti 'name' dan 'email' menjadi 'username'
+            'username' => [
                 'required',
                 'string',
-                'lowercase',
-                'email',
+                'alpha_dash', // Memastikan username hanya berisi huruf, angka, dash, dan underscore
                 'max:255',
+                // Memastikan username unik, tapi mengabaikan ID user yang sedang login agar bisa di-save
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+        ];
+    }
+
+    /**
+     * Custom error messages (Opsional)
+     */
+    public function messages(): array
+    {
+        return [
+            'username.unique' => 'Username ini sudah digunakan oleh staf lain.',
+            'username.alpha_dash' => 'Username hanya boleh berisi huruf, angka, tanda hubung (-), dan garis bawah (_).',
         ];
     }
 }
